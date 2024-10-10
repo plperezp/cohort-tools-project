@@ -71,7 +71,7 @@ app.post("/api/students", async (req, res) =>{
     })
     res.status(201).json(response)
   } catch (error) {
-    res.status(500).json({message: "Internal Server Error"})
+    res.status(500).json({message: "Error creating student"})
   }
 
 })
@@ -81,7 +81,7 @@ app.get("/api/students", async (req, res)=>{
     const response = await Student.find().populate("cohort")
     res.status(200).json(response)
   } catch (error) {
-    res.status(500).json({message: "student ID not found"})
+    res.status(500).json({message: "Error fetching students"})
   }
 })
 
@@ -91,7 +91,7 @@ app.get("/api/students/cohort/:cohortId", async (req, res) =>{
     const response = await Student.find({ cohort: req.params.cohortId }).populate("cohort")// possible populate
     res.status(200).json(response)
   } catch (error) {
-    res.status(500).json({message: "Internal Server Error"})
+    res.status(500).json({message: "Error fetching students by Cohort"})
   }
 })
 
@@ -230,6 +230,9 @@ app.delete("/api/cohorts/:cohortId", async (req, res) =>{
   }
 })
 
+// ERROR HANDLING
+const errorHandling = require("./error-handlers")
+errorHandling(app)
 
 // START SERVER
 app.listen(PORT, () => {
