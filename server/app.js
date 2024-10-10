@@ -78,7 +78,7 @@ app.post("/api/students", async (req, res) =>{
 
 app.get("/api/students", async (req, res)=>{
   try {
-    const response = await Student.find()
+    const response = await Student.find().populate("cohort")
     res.status(200).json(response)
   } catch (error) {
     res.status(500).json({message: "student ID not found"})
@@ -99,7 +99,7 @@ app.get("/api/students/cohort/:cohortId", async (req, res) =>{
 // GET a specific student by id
 app.get("/api/students/:studentId", async (req, res) => {
   try {
-    const response = await Student.findById( req.params.studentId )
+    const response = await Student.findById( req.params.studentId ).populate("cohort")
     res.status(200).json(response)
   } catch (error) {
     res.status(500).json({message: "error fetching student by id"})
