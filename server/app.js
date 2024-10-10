@@ -88,7 +88,7 @@ app.get("/api/students", async (req, res)=>{
 
 app.get("/api/students/cohort/:cohortId", async (req, res) =>{
   try {
-    const response = await Student.find({ cohort: req.params.cohortId }) // possible populate
+    const response = await Student.find({ cohort: req.params.cohortId }).populate("cohort")// possible populate
     res.status(200).json(response)
   } catch (error) {
     res.status(500).json({message: "Internal Server Error"})
