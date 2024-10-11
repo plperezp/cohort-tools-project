@@ -91,6 +91,21 @@ router.post("/login", async (req, res, next)=>{
     }
 })
 
+router.get("/:id", verifyToken, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found by id" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+})
+
+
 router.get("/verify", verifyToken, (req, res) => {
 
   // console.log(req.payload)
