@@ -66,7 +66,7 @@ router.delete("/:cohortId", async (req, res) =>{
   try {
 
     const response = await Cohort.findByIdAndDelete(req.params.cohortId)
-    res.status(204).json({message: "Deleted cohort"})
+    res.sendStatus(204); // no content added in the response body for 204
     
   } catch (error) {
     next(error)

@@ -89,8 +89,8 @@ router.put("/:studentId", async (req, res, next) => {
 router.delete("/:studentsId", async (req, res, next) => {
 
   try {
-    const response = await Student.findByIdAndDelete( req.params.studentId )
-    res.status(204).json({message: "Deleted student"})
+    const response = await Student.findByIdAndDelete( req.params.studentsId )
+    res.sendStatus(204); // no content added in the response body for 204
     
   } catch (error) {
     next(error)
