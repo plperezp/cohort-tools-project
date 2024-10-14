@@ -10,6 +10,8 @@ function verifyToken(req, res, next) {
     const payload = jwt.verify(token, process.env.TOKEN_SECRET)
 
     req.payload = payload
+
+    console.log("facilitando el verifyToken")
     
     next()
 

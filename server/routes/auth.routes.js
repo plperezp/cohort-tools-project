@@ -8,9 +8,9 @@ const verifyToken = require("../middlewares/auth.middlewares.js")
 
 //Post signup
 router.post("/signup", async (req, res, next)=>{
-  
+  console.log("llegando el test")
   const {email, password, username} = req.body
-  
+  console.log(req.body)
   if (!email || !password ||!username){
     res.status(400).json({message: "Todos los campos son obligatorios"})
     return
@@ -26,7 +26,7 @@ router.post("/signup", async (req, res, next)=>{
   }
 
   try {
-
+    console.log("llegando el test2")
     const foundUser = await User.findOne({ email: email})
     if(foundUser){
       res.status(400).json({ message: "Usuario ya registrado con ese email"})
@@ -53,7 +53,7 @@ router.post("/signup", async (req, res, next)=>{
 // POST "/api/auth/login" => recibe credenciales de usuario y lo autentica. Envía Token (llave virtual).
 
 router.post("/login", async (req, res, next)=>{
-
+console.log("llegando al login")
   const {email, password} = req.body
   
 
@@ -91,9 +91,10 @@ router.post("/login", async (req, res, next)=>{
     }
 })
 
-router.get("/:id", verifyToken, async (req, res, next) => {
+router.get("/user/:id", verifyToken, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
+    console.log("llegando al id")
 
     if (!user) {
       return res.status(404).json({ message: "user not found by id" });
@@ -107,7 +108,7 @@ router.get("/:id", verifyToken, async (req, res, next) => {
 
 
 router.get("/verify", verifyToken, (req, res) => {
-
+console.log("llegando al verify")
   // console.log(req.payload)
 
   res.status(200).json(req.payload)
